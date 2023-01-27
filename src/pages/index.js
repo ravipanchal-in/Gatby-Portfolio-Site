@@ -21,7 +21,7 @@ const Home = () => {
     <Layout>
       <section className="header">
         <div>
-          <h2>Hello Gatsby</h2>
+          <h2>Hello Gatsby!!!</h2>
           <h3>Design Develop & Deploy</h3>
           <p>
             Deserunt do fugiat magna aliqua est cillum. Duis consequat qui id
