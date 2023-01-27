@@ -7,12 +7,29 @@
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
-exports.createPages = async ({ actions }) => {
+
+const path = require("path")
+
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-  createPage({
-    path: "/using-dsg",
-    component: require.resolve("./src/templates/using-dsg.js"),
-    context: {},
-    defer: true,
+
+  const { data } = await graphql(`
+    query Articles {
+      allMarkdownRemark {
+        nodes {
+          frontmatter {
+            slug
+          }
+        }
+      }
+    }
+  `)
+
+  data.allMarkdownRemark.nodes.forEach(node => {
+    createPage({
+      path: "/projects/" + node.frontmatter.slug,
+      component: path.resolve("./src/pages/project-details.js"),
+      context: { slug: node.frontmatter.slug },
+    })
   })
 }
